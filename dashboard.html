@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AeroVoyage India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* Updated CSS with new features */
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #333333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2a75e6;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Dashboard Specific Styles */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .welcome-message h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-message p {
+            color: #666;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-icon.blue {
+            background-color: var(--primary);
+        }
+        
+        .card-icon.purple {
+            background-color: var(--secondary);
+        }
+        
+        .card-icon.red {
+            background-color: var(--accent);
+        }
+        
+        .card-icon.green {
+            background-color: var(--success);
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-title {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .card-progress {
+            margin-top: 1rem;
+            height: 6px;
+            background-color: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        /* Dashboard Sections */
+        .dashboard-section {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .recent-bookings, .quick-actions, .flight-deals {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+        }
+        
+        .status {
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status.confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-btn {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            margin-right: 0.5rem;
+        }
+        
+        .action-btn.view {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .action-btn.cancel {
+            background-color: #f8f9fa;
+            color: var(--text);
+            border: 1px solid #ddd;
+        }
+        
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .quick-action {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .quick-action:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .quick-action i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .quick-action h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .quick-action p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        /* Flight Deals */
+        .deal-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .deal-card:hover {
+            background-color: #e9ecef;
+        }
+        
+        .deal-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1rem;
+        }
+        
+        .deal-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .deal-info p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .deal-price {
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .deal-price .price {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .deal-price .discount {
+            font-size: 0.7rem;
+            color: var(--success);
+        }
+        
+        /* Calendar */
+        .calendar-container {
+            margin-top: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </header>
+    
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="welcome-message">
+                <h1 id="welcomeHeading">Welcome back, Guest!</h1>
+                <p id="welcomeSubtitle">Here's what's happening with your bookings</p>
+            </div>
+            <div class="user-profile">
+                <div class="profile-pic" id="profileInitial">G</div>
+                <button class="btn btn-primary" id="newBookingBtn">
+                    <i class="fas fa-plus"></i> New Booking
+                </button>
+            </div>
+        </div>
+        
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Upcoming Trips</h3>
+                    <div class="card-icon blue">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="upcomingTrips">0</div>
+                <div class="card-title">Flights in next 30 days</div>
+                <div class="card-progress">
+                    <div class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Total Bookings</h3>
+                    <div class="card-icon purple">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="totalBookings">0</div>
+                <div class="card-title">All-time bookings</div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Reward Points</h3>
+                    <div class="card-icon red">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                </div>
+                <div class="card-value" id="rewardPoints">0</div>
+                <div class="card-title">Available for redemption</div>
+                <div class="card-progress">
+                    <div class="progress-bar" style="width: 25%"></div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Savings</h3>
+                    <div class="card-icon green">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                </div>
+                <div class="card-value">₹<span id="totalSavings">0</span></div>
+                <div class="card-title">From special offers</div>
+            </div>
+        </div>
+        
+        <div class="dashboard-section">
+            <div class="recent-bookings">
+                <div class="section-title">
+                    <h2>Recent Bookings</h2>
+                    <button class="btn btn-outline" style="padding: 0.3rem 0.6rem;">
+                        View All <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Route</th>
+                            <th>Date</th>
+                            <th>Passengers</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <!-- Bookings will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="section-title">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="quick-actions-grid">
+                    <div class="quick-action" onclick="showModal('checkInModal')">
+                        <i class="fas fa-qrcode"></i>
+                        <h4>Online Check-in</h4>
+                        <p>Check-in for your upcoming flight</p>
+                    </div>
+                    <div class="quick-action" onclick="showModal('manageBookingModal')">
+                        <i class="fas fa-edit"></i>
+                        <h4>Manage Booking</h4>
+                        <p>Modify or cancel your booking</p>
+                    </div>
+                    <div class="quick-action" onclick="showModal('seatSelectionModal')">
+                        <i class="fas fa-chair"></i>
+                        <h4>Seat Selection</h4>
+                        <p>Choose your preferred seat</p>
+                    </div>
+                    <div class="quick-action" onclick="showModal('mealPreferenceModal')">
+                        <i class="fas fa-utensils"></i>
+                        <h4>Meal Preference</h4>
+                        <p>Select your in-flight meal</p>
+                    </div>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="section-title" style="margin-top: 1.5rem;">
+                        <h2>Upcoming Flights</h2>
+                    </div>
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flight-deals">
+            <div class="section-title">
+                <h2>Special Flight Deals</h2>
+                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem;">
+                    View All <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div id="flightDealsContainer">
+                <!-- Flight deals will be added dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- New Booking Modal -->
+    <div class="modal" id="newBookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Flight Booking</h3>
+                <button class="close-modal" onclick="hideModal('newBookingModal')">&times;</button>
+            </div>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="tripType">Trip Type</label>
+                    <select id="tripType" required>
+                        <option value="">Select trip type</option>
+                        <option value="one-way">One Way</option>
+                        <option value="round-trip">Round Trip</option>
+                        <option value="multi-city">Multi-city</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fromCity">From</label>
+                    <input type="text" id="fromCity" placeholder="City or Airport" required>
+                </div>
+                <div class="form-group">
+                    <label for="toCity">To</label>
+                    <input type="text" id="toCity" placeholder="City or Airport" required>
+                </div>
+                <div class="form-group">
+                    <label for="departureDate">Departure Date</label>
+                    <input type="text" id="departureDate" class="datepicker" placeholder="Select date" required>
+                </div>
+                <div class="form-group" id="returnDateGroup" style="display: none;">
+                    <label for="returnDate">Return Date</label>
+                    <input type="text" id="returnDate" class="datepicker" placeholder="Select date">
+                </div>
+                <div class="form-group">
+                    <label for="passengers">Passengers</label>
+                    <input type="number" id="passengers" min="1" max="9" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="travelClass">Class</label>
+                    <select id="travelClass" required>
+                        <option value="economy">Economy</option>
+                        <option value="premium-economy">Premium Economy</option>
+                        <option value="business">Business</option>
+                        <option value="first">First Class</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="hideModal('newBookingModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Search Flights</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Other Modals would go here (check-in, manage booking, etc.) -->
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AeroVoyage</h3>
+                <p>Your trusted partner for flight bookings across India. We offer the best prices and service for your domestic travel needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="offers.html">Special Offers</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Aviation Road, Mumbai</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-envelope"></i> info@aerovoyage.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 AeroVoyage India. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // User Data and Initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            if (!isLoggedIn) {
+                // Redirect to login if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get user data from localStorage or prompt
+            let userData = JSON.parse(localStorage.getItem('userData'));
+            
+            if (!userData) {
+                // If no user data, prompt for it
+                const userName = prompt("Welcome to AeroVoyage! Please enter your name:");
+                const userEmail = prompt("Please enter your email address:");
+                
+                if (userName && userEmail) {
+                    userData = {
+                        name: userName,
+                        email: userEmail,
+                        points: 1250,
+                        bookings: []
+                    };
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                } else {
+                    // If user cancels, use default data
+                    userData = {
+                        name: "Guest",
+                        email: "guest@example.com",
+                        points: 0,
+                        bookings: []
+                    };
+                }
+            }
+            
+            // Update UI with user data
+            updateUserProfile(userData);
+            
+            // Initialize dashboard components
+            initializeDashboard();
+            
+            // Set up event listeners
+            setupEventListeners();
+        });
+        
+        function updateUserProfile(userData) {
+            // Update welcome message
+            document.getElementById('welcomeHeading').textContent = `Welcome back, ${userData.name}!`;
+            
+            // Update profile initial
+            const profileInitial = document.getElementById('profileInitial');
+            profileInitial.textContent = userData.name.charAt(0).toUpperCase();
+            
+            // Update reward points
+            document.getElementById('rewardPoints').textContent = userData.points.toLocaleString();
+            
+            // Update welcome subtitle based on bookings
+            const welcomeSubtitle = document.getElementById('welcomeSubtitle');
+            if (userData.bookings.length > 0) {
+                welcomeSubtitle.textContent = `You have ${userData.bookings.length} upcoming trips`;
+            } else {
+                welcomeSubtitle.textContent = "Let's book your next adventure!";
+            }
+        }
+        
+        function initializeDashboard() {
+            // Initialize date pickers
+            flatpickr(".datepicker", {
+                dateFormat: "d M Y",
+                minDate: "today"
+            });
+            
+            // Load sample bookings data
+            loadBookingsData();
+            
+            // Load flight deals
+            loadFlightDeals();
+            
+            // Initialize calendar
+            initializeCalendar();
+        }
+        
+        function loadBookingsData() {
+            // Sample bookings data
+            const bookings = [
+                {
+                    id: "AV78945",
+                    route: "Mumbai → Goa",
+                    date: "15 Jun 2023",
+                    passengers: 2,
+                    amount: "₹7,598",
+                    status: "confirmed"
+                },
+                {
+                    id: "AV63421",
+                    route: "Delhi → Bangalore",
+                    date: "22 Jun 2023",
+                    passengers: 1,
+                    amount: "₹5,299",
+                    status: "confirmed"
+                },
+                {
+                    id: "AV59876",
+                    route: "Hyderabad → Kolkata",
+                    date: "05 Jul 2023",
+                    passengers: 3,
+                    amount: "₹12,897",
+                    status: "pending"
+                },
+                {
+                    id: "AV45623",
+                    route: "Chennai → Delhi",
+                    date: "18 May 2023",
+                    passengers: 2,
+                    amount: "₹9,499",
+                    status: "cancelled"
+                }
+            ];
+            
+            // Update bookings count
+            const upcomingTrips = bookings.filter(booking => booking.status !== 'cancelled').length;
+            document.getElementById('upcomingTrips').textContent = upcomingTrips;
+            document.getElementById('totalBookings').textContent = bookings.length;
+            
+            // Update progress bar
+            const progressBar = document.querySelector('.dashboard-card:nth-child(1) .progress-bar');
+            progressBar.style.width = `${(upcomingTrips / 5) * 100}%`;
+            
+            // Populate bookings table
+            const tableBody = document.getElementById('bookingsTableBody');
+            tableBody.innerHTML = '';
+            
+            bookings.forEach(booking => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>#${booking.id}</td>
+                    <td>${booking.route}</td>
+                    <td>${booking.date}</td>
+                    <td>${booking.passengers}</td>
+                    <td>${booking.amount}</td>
+                    <td><span class="status ${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span></td>
+                    <td>
+                        <button class="action-btn view">View</button>
+                        ${booking.status !== 'cancelled' ? '<button class="action-btn cancel">Cancel</button>' : ''}
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function loadFlightDeals() {
+            // Sample flight deals
+            const deals = [
+                {
+                    id: "DL123",
+                    route: "Mumbai to Dubai",
+                    date: "Travel until Dec 2023",
+                    price: "₹24,999",
+                    discount: "Save 15%",
+                    image: "https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                },
+                {
+                    id: "SG456",
+                    route: "Delhi to Singapore",
+                    date: "Travel until Nov 2023",
+                    price: "₹18,499",
+                    discount: "Save 20%",
+                    image: "https://images.unsplash.com/photo-1538485399081-7c897c6ecb4d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                },
+                {
+                    id: "BL789",
+                    route: "Bangalore to Bali",
+                    date: "Travel until Jan 2024",
+                    price: "₹32,999",
+                    discount: "Save 10%",
+                    image: "https://images.unsplash.com/photo-1518544866330-95a2bfb1ad48?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
+                }
+            ];
+            
+            // Populate flight deals
+            const dealsContainer = document.getElementById('flightDealsContainer');
+            dealsContainer.innerHTML = '';
+            
+            deals.forEach(deal => {
+                const dealCard = document.createElement('div');
+                dealCard.className = 'deal-card';
+                dealCard.innerHTML = `
+                    <img src="${deal.image}" alt="${deal.route}">
+                    <div class="deal-info">
+                        <h4>${deal.route}</h4>
+                        <p>${deal.date}</p>
+                    </div>
+                    <div class="deal-price">
+                        <div class="price">${deal.price}</div>
+                        <div class="discount">${deal.discount}</div>
+                    </div>
+                `;
+                
+                dealsContainer.appendChild(dealCard);
+            });
+        }
+        
+        function initializeCalendar() {
+            // This would be replaced with a real calendar library in production
+            const calendarEl = document.getElementById('calendar');
+            calendarEl.innerHTML = `
+                <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                    <p style="text-align: center; font-weight: 500; margin-bottom: 1rem;">June 2023</p>
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; text-align: center;">
+                        <div style="font-weight: 500;">S</div>
+                        <div style="font-weight: 500;">M</div>
+                        <div style="font-weight: 500;">T</div>
+                        <div style="font-weight: 500;">W</div>
+                        <div style="font-weight: 500;">T</div>
+                        <div style="font-weight: 500;">F</div>
+                        <div style="font-weight: 500;">S</div>
+                        
+                        <div>28</div>
+                        <div>29</div>
+                        <div>30</div>
+                        <div>31</div>
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div style="background-color: var(--primary); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div style="background-color: var(--primary); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">22</div>
+                        <div>23</div>
+                        <div>24</div>
+                        
+                        <div>25</div>
+                        <div>26</div>
+                        <div>27</div>
+                        <div>28</div>
+                        <div>29</div>
+                        <div>30</div>
+                        <div>1</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function setupEventListeners() {
+            // New booking button
+            document.getElementById('newBookingBtn').addEventListener('click', function() {
+                showModal('newBookingModal');
+            });
+            
+            // Trip type change
+            document.getElementById('tripType').addEventListener('change', function() {
+                const returnDateGroup = document.getElementById('returnDateGroup');
+                if (this.value === 'round-trip') {
+                    returnDateGroup.style.display = 'block';
+                } else {
+                    returnDateGroup.style.display = 'none';
+                }
+            });
+            
+            // Booking form submission
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Searching for flights...');
+                hideModal('newBookingModal');
+            });
+            
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('isLoggedIn');
+                alert('You have been logged out successfully');
+                window.location.href = 'index.html';
+            });
+        }
+        
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+        
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>

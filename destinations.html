@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - AeroVoyage India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #004d99;
+            --dark: #333;
+            --light: #f4f4f4;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Destinations Page Styles */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .container h1 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .destination-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .destination-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destination-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover .destination-image img {
+            transform: scale(1.05);
+        }
+
+        .destination-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 1rem;
+            color: white;
+        }
+
+        .destination-overlay h3 {
+            margin: 0;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .destination-overlay p {
+            margin: 0.3rem 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .destination-info {
+            padding: 1.5rem;
+        }
+
+        .destination-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .destination-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .stat .label {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .explore-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .explore-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Flight Results Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .modal-content {
+            background-color: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .flight-results {
+            padding: 1.5rem;
+        }
+
+        .flight-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .flight-airline {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .flight-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .flight-details {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .flight-time {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .flight-duration {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .flight-route {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .flight-city {
+            font-weight: 500;
+        }
+
+        .flight-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .flight-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flight-stops {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .flight-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .book-now-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .book-now-btn:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-links i {
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flight-details {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .flight-divider {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html" class="active">Destinations</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </header>
+    
+    <!-- Destinations Listings -->
+    <div class="container">
+        <h1>Popular Indian Destinations</h1>
+        
+        <div class="destinations-grid" id="destinationsContainer">
+            <!-- Destinations will be loaded dynamically -->
+        </div>
+    </div>
+    
+    <!-- Flight Results Modal -->
+    <div class="modal" id="flightModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Flights to Destination</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="flight-results" id="flightResults">
+                <!-- Flight results will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AeroVoyage</h3>
+                <p>Your trusted partner for flight bookings across India. We offer the best prices and service for your domestic travel needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="offers.html">Special Offers</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Ongole, Andhra Pradesh, India</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-envelope"></i> support@aerovoyage.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 AeroVoyage India. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Sample destinations data
+        const destinations = [
+            {
+                id: "DEL",
+                name: "Delhi",
+                description: "Capital City",
+                image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                about: "Explore the rich history and vibrant culture of India's capital, from the Red Fort to Qutub Minar.",
+                basePrice: 3499,
+                dailyFlights: 25,
+                rating: 4.5
+            },
+            {
+                id: "BOM",
+                name: "Mumbai",
+                description: "City of Dreams",
+                image: "https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                about: "Experience the bustling metropolis with its iconic Gateway of India and Marine Drive.",
+                basePrice: 3999,
+                dailyFlights: 30,
+                rating: 4.6
+            },
+            
+            {
+                id: "BLR",
+                name: "Bangalore",
+                description: "Silicon Valley of India",
+                image: "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                about: "Discover India's tech hub with its pleasant climate, beautiful parks, and vibrant nightlife.",
+                basePrice: 4299,
+                dailyFlights: 20,
+                rating: 4.4
+            },
+            {
+                id: "HYD",
+                name: "Hyderabad",
+                description: "City of Pearls",
+                image: "https://media.cntraveller.in/wp-content/uploads/2019/04/Hyderabad-Lead.jpg",
+                about: "Enjoy the blend of history and modernity with Charminar, Golconda Fort, and biryani.",
+                basePrice: 3799,
+                dailyFlights: 18,
+                rating: 4.5
+            },
+            {
+                id: "GOI",
+                name: "Goa",
+                description: "Beach Paradise",
+                image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                about: "Relax on pristine beaches, enjoy water sports, and experience vibrant nightlife.",
+                basePrice: 4999,
+                dailyFlights: 15,
+                rating: 4.7
+            },
+            {
+                id: "MAA",
+                name: "Chennai",
+                description: "Cultural Capital",
+                image: "https://images.unsplash.com/photo-1596386461350-326ccb383e9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                about: "Experience South Indian culture, beautiful temples, and Marina Beach.",
+                basePrice: 4599,
+                dailyFlights: 12,
+                rating: 4.3
+            }
+        ];
+
+        // Sample flight data
+        const flights = {
+            "DEL": [
+                {
+                    id: "FL101",
+                    airline: "IndiGo",
+                    departureTime: "06:00",
+                    arrivalTime: "08:15",
+                    duration: "2h 15m",
+                    price: 3499,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL102",
+                    airline: "Air India",
+                    departureTime: "09:30",
+                    arrivalTime: "11:45",
+                    duration: "2h 15m",
+                    price: 3899,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL103",
+                    airline: "Vistara",
+                    departureTime: "14:15",
+                    arrivalTime: "16:30",
+                    duration: "2h 15m",
+                    price: 4299,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ],
+            "BOM": [
+                {
+                    id: "FL201",
+                    airline: "IndiGo",
+                    departureTime: "07:00",
+                    arrivalTime: "09:10",
+                    duration: "2h 10m",
+                    price: 3999,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL202",
+                    airline: "Go First",
+                    departureTime: "11:30",
+                    arrivalTime: "13:40",
+                    duration: "2h 10m",
+                    price: 3699,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ],
+            "BLR": [
+                {
+                    id: "FL301",
+                    airline: "IndiGo",
+                    departureTime: "08:00",
+                    arrivalTime: "10:20",
+                    duration: "2h 20m",
+                    price: 4299,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL302",
+                    airline: "SpiceJet",
+                    departureTime: "13:15",
+                    arrivalTime: "15:35",
+                    duration: "2h 20m",
+                    price: 3999,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ],
+            "HYD": [
+                {
+                    id: "FL401",
+                    airline: "IndiGo",
+                    departureTime: "06:30",
+                    arrivalTime: "08:15",
+                    duration: "1h 45m",
+                    price: 3799,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL402",
+                    airline: "AirAsia",
+                    departureTime: "16:45",
+                    arrivalTime: "18:30",
+                    duration: "1h 45m",
+                    price: 3499,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ],
+            "GOI": [
+                {
+                    id: "FL501",
+                    airline: "IndiGo",
+                    departureTime: "09:00",
+                    arrivalTime: "10:30",
+                    duration: "1h 30m",
+                    price: 4999,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL502",
+                    airline: "SpiceJet",
+                    departureTime: "14:30",
+                    arrivalTime: "16:00",
+                    duration: "1h 30m",
+                    price: 4599,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ],
+            "MAA": [
+                {
+                    id: "FL601",
+                    airline: "IndiGo",
+                    departureTime: "07:45",
+                    arrivalTime: "09:45",
+                    duration: "2h 00m",
+                    price: 4599,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                },
+                {
+                    id: "FL602",
+                    airline: "Air India",
+                    departureTime: "12:15",
+                    arrivalTime: "14:15",
+                    duration: "2h 00m",
+                    price: 4899,
+                    date: "15 Nov 2023",
+                    stops: "Non-stop"
+                }
+            ]
+        };
+
+        // Render destinations
+        function renderDestinations() {
+            const container = document.getElementById('destinationsContainer');
+            container.innerHTML = '';
+
+            destinations.forEach(destination => {
+                const card = document.createElement('div');
+                card.className = 'destination-card';
+                card.innerHTML = `
+                    <div class="destination-image">
+                        <img src="${destination.image}" alt="${destination.name}">
+                        <div class="destination-overlay">
+                            <h3>${destination.name}</h3>
+                            <p>${destination.description}</p>
+                        </div>
+                    </div>
+                    <div class="destination-info">
+                        <p>${destination.about}</p>
+                        <div class="destination-stats">
+                            <div class="stat">
+                                <div class="value">₹${destination.basePrice.toLocaleString('en-IN')}+</div>
+                                <div class="label">Flights from</div>
+                            </div>
+                            <div class="stat">
+                                <div class="value">${destination.dailyFlights}+</div>
+                                <div class="label">Daily flights</div>
+                            </div>
+                            <div class="stat">
+                                <div class="value">${destination.rating}★</div>
+                                <div class="label">Rating</div>
+                            </div>
+                        </div>
+                        <button class="explore-btn" data-destination="${destination.id}">
+                            <i class="fas fa-search"></i> Explore Flights
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Add event listeners to explore buttons
+            document.querySelectorAll('.explore-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const destinationId = this.getAttribute('data-destination');
+                    showFlights(destinationId);
+                });
+            });
+        }
+
+        // Show flights for a destination
+        function showFlights(destinationId) {
+            const destination = destinations.find(d => d.id === destinationId);
+            const flightList = flights[destinationId];
+
+            if (!destination || !flightList) return;
+
+            // Set modal title
+            document.getElementById('modalTitle').textContent = `Flights to ${destination.name}`;
+
+            // Render flight results
+            const resultsContainer = document.getElementById('flightResults');
+            resultsContainer.innerHTML = '';
+
+            flightList.forEach(flight => {
+                const flightCard = document.createElement('div');
+                flightCard.className = 'flight-card';
+                flightCard.innerHTML = `
+                    <div class="flight-header">
+                        <div class="flight-airline">
+                            <i class="fas fa-plane"></i>
+                            <span>${flight.airline}</span>
+                        </div>
+                        <div class="flight-price">₹${flight.price.toLocaleString('en-IN')}</div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-departure">
+                            <div class="flight-time">${flight.departureTime}</div>
+                            <div class="flight-city">Delhi (DEL)</div>
+                            <div class="flight-date">${flight.date}</div>
+                        </div>
+                        <div class="flight-divider">
+                            <div class="flight-duration">${flight.duration}</div>
+                            <div class="flight-stops">${flight.stops}</div>
+                        </div>
+                        <div class="flight-arrival">
+                            <div class="flight-time">${flight.arrivalTime}</div>
+                            <div class="flight-city">${destination.name} (${destinationId})</div>
+                            <div class="flight-date">${flight.date}</div>
+                        </div>
+                    </div>
+                    <div class="flight-actions">
+                        <button class="book-now-btn" data-flight-id="${flight.id}">Book Now</button>
+                    </div>
+                `;
+                resultsContainer.appendChild(flightCard);
+            });
+
+            // Add event listeners to book buttons
+            document.querySelectorAll('.book-now-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const flightId = this.getAttribute('data-flight-id');
+                    bookFlight(flightId, destinationId);
+                });
+            });
+
+            // Show modal
+            document.getElementById('flightModal').style.display = 'block';
+        }
+
+        // Book flight function
+        function bookFlight(flightId, destinationId) {
+            // Find the flight and destination
+            const flight = flights[destinationId].find(f => f.id === flightId);
+            const destination = destinations.find(d => d.id === destinationId);
+
+            if (!flight || !destination) return;
+
+            // Store booking data in localStorage
+            const bookingData = {
+                flightId: flight.id,
+                airline: flight.airline,
+                departure: "Delhi (DEL)",
+                arrival: `${destination.name} (${destinationId})`,
+                departureTime: flight.departureTime,
+                arrivalTime: flight.arrivalTime,
+                date: flight.date,
+                duration: flight.duration,
+                price: flight.price,
+                stops: flight.stops
+            };
+
+            localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+
+            // Redirect to booking page
+            window.location.href = 'booking.html';
+        }
+
+        // Close modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('flightModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('flightModal')) {
+                document.getElementById('flightModal').style.display = 'none';
+            }
+        });
+
+        // Login/Register button functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            window.location.href = 'register.html';
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDestinations();
+        });
+    </script>
+</body>
+</html>

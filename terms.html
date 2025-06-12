@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - AeroVoyage India</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #333333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Policy Content */
+        .policy-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .policy-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .policy-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .policy-content {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .policy-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .policy-section h2 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .policy-section h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .policy-section h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .policy-section p, .policy-section ul {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .policy-section ul {
+            padding-left: 1.5rem;
+        }
+        
+        .policy-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            background-color: rgba(58, 134, 255, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav {
+                margin: 1rem 0;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .policy-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </header>
+    
+    <!-- Terms & Conditions Content -->
+    <div class="policy-container">
+        <div class="policy-header">
+            <h1>Terms & Conditions</h1>
+            <p>Last updated: January 15, 2023</p>
+        </div>
+        
+        <div class="policy-content">
+            <div class="policy-section">
+                <p>Welcome to AeroVoyage India ("we", "us", or "our"). These Terms & Conditions ("Terms") govern your use of our flight booking services, website (<a href="https://www.aerovoyage.in">www.aerovoyage.in</a>), and mobile application (collectively, the "Service").</p>
+                <div class="highlight">
+                    <p><strong>Important:</strong> By accessing or using our Service, you agree to be bound by these Terms. If you disagree with any part of these Terms, you must not use our Service.</p>
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h2>1. Service Description</h2>
+                <p>AeroVoyage India operates as an online travel agency specializing in domestic flight bookings within India. Our Service allows users to:</p>
+                <ul>
+                    <li>Search and compare flight options across multiple airlines</li>
+                    <li>Book domestic flights within India</li>
+                    <li>Manage existing bookings</li>
+                    <li>Access special offers and discounts</li>
+                    <li>Receive customer support for flight-related issues</li>
+                </ul>
+                <p>We act as an intermediary between you and airlines, facilitating bookings but not operating flights ourselves.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>2. User Eligibility</h2>
+                <p>To use our Service, you must:</p>
+                <ul>
+                    <li>Be at least 18 years of age</li>
+                    <li>Possess the legal authority to create binding obligations</li>
+                    <li>Use the Service only for legitimate flight bookings</li>
+                    <li>Provide accurate and complete information</li>
+                    <li>Comply with all applicable laws and regulations</li>
+                </ul>
+                <p>We reserve the right to refuse service to anyone at our discretion.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>3. Account Registration</h2>
+                <h3>3.1 Account Creation</h3>
+                <p>To access certain features, you may need to register an account. During registration, you must:</p>
+                <ul>
+                    <li>Provide current, complete, and accurate information</li>
+                    <li>Maintain and promptly update your information</li>
+                    <li>Choose a strong password and keep it confidential</li>
+                    <li>Notify us immediately of any unauthorized account use</li>
+                </ul>
+                
+                <h3>3.2 Account Security</h3>
+                <p>You are responsible for:</p>
+                <ul>
+                    <li>All activities that occur under your account</li>
+                    <li>Maintaining the confidentiality of your password</li>
+                    <li>Logging out from your account after each session</li>
+                </ul>
+                <p>We are not liable for any loss or damage arising from your failure to comply with these security obligations.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>4. Flight Bookings</h2>
+                <h3>4.1 Booking Process</h3>
+                <p>When making a booking through our Service:</p>
+                <ul>
+                    <li>All flight options are subject to availability</li>
+                    <li>Prices are not guaranteed until ticketing is complete</li>
+                    <li>You must provide accurate passenger information exactly as it appears on government-issued ID</li>
+                    <li>Special requests (meals, seating) are requests only and not guaranteed</li>
+                </ul>
+                
+                <h3>4.2 Payment Terms</h3>
+                <p>All bookings require full payment at the time of reservation:</p>
+                <ul>
+                    <li>We accept various payment methods as displayed during checkout</li>
+                    <li>All transactions are in Indian Rupees (₹) unless otherwise stated</li>
+                    <li>Your payment card may be subject to validation checks</li>
+                    <li>Additional fees may apply for certain payment methods</li>
+                </ul>
+                
+                <h3>4.3 Booking Confirmation</h3>
+                <p>Upon successful booking:</p>
+                <ul>
+                    <li>You will receive a confirmation email with e-ticket details</li>
+                    <li>The airline's booking system will generate a PNR (Passenger Name Record)</li>
+                    <li>You should verify all details are correct immediately</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>5. Cancellations and Changes</h2>
+                <h3>5.1 Passenger-Initiated Changes</h3>
+                <p>Requests for changes or cancellations:</p>
+                <ul>
+                    <li>Must be made through our Service or customer support</li>
+                    <li>Are subject to airline policies and fare rules</li>
+                    <li>May incur fees plus any fare differences</li>
+                    <li>Refunds will be processed according to our Refund Policy</li>
+                </ul>
+                
+                <h3>5.2 Airline-Initiated Changes</h3>
+                <p>For flight changes made by airlines:</p>
+                <ul>
+                    <li>We will notify you of significant schedule changes</li>
+                    <li>Your options will depend on airline policies</li>
+                    <li>Compensation may be available as per DGCA guidelines</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>6. User Responsibilities</h2>
+                <p>As a user of our Service, you agree to:</p>
+                <ul>
+                    <li>Use the Service only for lawful purposes</li>
+                    <li>Provide truthful and accurate information</li>
+                    <li>Ensure you have valid travel documents for your journey</li>
+                    <li>Comply with all airline rules and regulations</li>
+                    <li>Arrive at the airport with sufficient time for check-in and security</li>
+                    <li>Not engage in any fraudulent or abusive behavior</li>
+                    <li>Not make false or speculative bookings</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>7. Prohibited Activities</h2>
+                <p>You may not:</p>
+                <ul>
+                    <li>Use the Service for any unlawful purpose</li>
+                    <li>Make fraudulent bookings or payments</li>
+                    <li>Use bots, scrapers, or other automated means to access our systems</li>
+                    <li>Circumvent any security or access restrictions</li>
+                    <li>Resell or commercially exploit our services without authorization</li>
+                    <li>Upload malicious code or interfere with Service operation</li>
+                    <li>Impersonate any person or entity</li>
+                    <li>Violate any applicable aviation regulations</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>8. Intellectual Property</h2>
+                <p>All content on the Service, including:</p>
+                <ul>
+                    <li>Text, graphics, logos, and images</li>
+                    <li>Software and application code</li>
+                    <li>Flight data and pricing information</li>
+                    <li>Branding and trademarks</li>
+                </ul>
+                <p>is owned by or licensed to AeroVoyage India and protected by intellectual property laws. You may not:</p>
+                <ul>
+                    <li>Reproduce, modify, or distribute our content without permission</li>
+                    <li>Use our trademarks without written consent</li>
+                    <li>Reverse engineer or decompile any part of the Service</li>
+                    <li>Create derivative works based on our content</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>9. Limitation of Liability</h2>
+                <p>As an intermediary between you and airlines, our liability is limited as follows:</p>
+                <ul>
+                    <li>We are not responsible for flight delays, cancellations, or schedule changes</li>
+                    <li>We have no liability for lost/damaged baggage or denied boarding</li>
+                    <li>We are not responsible for airline service quality or safety</li>
+                    <li>Our maximum liability for any claim is limited to the booking value</li>
+                    <li>We are not liable for indirect, incidental, or consequential damages</li>
+                </ul>
+                <div class="highlight">
+                    <p><strong>Note:</strong> Airlines are responsible for flight operations. Any complaints regarding flight service should be directed to the operating airline.</p>
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h2>10. Indemnification</h2>
+                <p>You agree to indemnify and hold harmless AeroVoyage India and its affiliates from:</p>
+                <ul>
+                    <li>Any claims resulting from your use of the Service</li>
+                    <li>Your violation of these Terms</li>
+                    <li>Your infringement of any third-party rights</li>
+                    <li>Any unauthorized use of your account</li>
+                </ul>
+                <p>This includes reasonable attorneys' fees and other legal expenses.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>11. Termination</h2>
+                <p>We may terminate or suspend your access to the Service:</p>
+                <ul>
+                    <li>Immediately, for violations of these Terms</li>
+                    <li>With notice, for any other reason at our discretion</li>
+                </ul>
+                <p>Upon termination:</p>
+                <ul>
+                    <li>Your right to use the Service ceases immediately</li>
+                    <li>Any outstanding bookings remain subject to airline policies</li>
+                    <li>We may retain your information as needed for legal compliance</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>12. Governing Law and Dispute Resolution</h2>
+                <h3>12.1 Governing Law</h3>
+                <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to conflict of law principles.</p>
+                
+                <h3>12.2 Dispute Resolution</h3>
+                <p>Any disputes shall be resolved as follows:</p>
+                <ul>
+                    <li>First attempt: Good faith negotiations between parties</li>
+                    <li>Second step: Mediation in Ongole, Andhra Pradesh</li>
+                    <li>Final resolution: Exclusive jurisdiction of courts in Ongole, Andhra Pradesh</li>
+                </ul>
+                <p>You agree to waive any right to a jury trial or class action.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>13. General Provisions</h2>
+                <h3>13.1 Entire Agreement</h3>
+                <p>These Terms constitute the entire agreement between you and AeroVoyage India regarding the Service.</p>
+                
+                <h3>13.2 Severability</h3>
+                <p>If any provision is found invalid, the remaining provisions remain in full effect.</p>
+                
+                <h3>13.3 No Waiver</h3>
+                <p>Our failure to enforce any right does not constitute a waiver of that right.</p>
+                
+                <h3>13.4 Assignment</h3>
+                <p>You may not assign your rights under these Terms without our written consent.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>14. Changes to Terms</h2>
+                <p>We may modify these Terms at any time by:</p>
+                <ul>
+                    <li>Posting the revised Terms on our website</li>
+                    <li>Updating the "Last updated" date</li>
+                    <li>Providing notice via email for significant changes</li>
+                </ul>
+                <p>Your continued use after changes constitutes acceptance of the modified Terms.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>15. Contact Information</h2>
+                <p>For questions about these Terms:</p>
+                <p><strong>Email:</strong> <a href="mailto:legal@aerovoyage.in">legal@aerovoyage.in</a></p>
+                <p><strong>Address:</strong> Legal Department, AeroVoyage India, Ongole, Andhra Pradesh - 523001</p>
+                <p><strong>Phone:</strong> +91 9876543210 (Monday-Friday, 9AM-6PM IST)</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AeroVoyage</h3>
+                <p>Your trusted partner for flight bookings across India. We offer the best prices and service for your domestic travel needs.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/sumanth_reddy_01?igsh=MWpzeXVzOXJjemwwdw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/sumanth-reddy-boyalla-06112a31b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:oksumanth@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="offers.html">Offers</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Ongole, Andhra Pradesh</li>
+                    <li><i class="fas fa-envelope"></i> oksumanth@gmail.com</li>
+                    <li><i class="fas fa-user"></i> Founder: Sumanth Reddy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 AeroVoyage India. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Modal functionality
+        const authModal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeAuthModal = document.getElementById('closeAuthModal');
+        
+        if (loginBtn) loginBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (registerBtn) registerBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (closeAuthModal) closeAuthModal.addEventListener('click', () => authModal.style.display = 'none');
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

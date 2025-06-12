@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy - AeroVoyage India</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #333333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Policy Content */
+        .policy-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .policy-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .policy-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .policy-content {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .policy-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .policy-section h2 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .policy-section h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .policy-section h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .policy-section p, .policy-section ul {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .policy-section ul {
+            padding-left: 1.5rem;
+        }
+        
+        .policy-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            background-color: rgba(58, 134, 255, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* Refund-specific Footer */
+        .refund-footer {
+            background-color: #34495e;
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .refund-footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .refund-footer-column h3 {
+            color: #ecf0f1;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .refund-footer-links {
+            list-style: none;
+        }
+        
+        .refund-footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .refund-footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .refund-footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .refund-footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2c3e50;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav {
+                margin: 1rem 0;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .policy-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .refund-footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </header>
+    
+    <!-- Refund Policy Content -->
+    <div class="policy-container">
+        <div class="policy-header">
+            <h1>Refund Policy</h1>
+            <p>Last updated: January 15, 2023</p>
+        </div>
+        
+        <div class="policy-content">
+            <div class="policy-section">
+                <p>This Refund Policy outlines the terms and conditions for obtaining refunds for flight bookings made through AeroVoyage India ("we", "us", or "our"). Please read carefully before making a booking.</p>
+                <div class="highlight">
+                    <p><strong>Important:</strong> Refund eligibility and amounts are determined by airline policies and fare rules. This policy describes our processing of eligible refunds.</p>
+                </div>
+            </div>
+            
+            <div class="policy-section">
+                <h2>1. Refund Eligibility</h2>
+                <p>Refunds are available under these circumstances:</p>
+                <ul>
+                    <li><strong>Refundable fares:</strong> Full or partial refund minus fees</li>
+                    <li><strong>Flight cancellations by airline:</strong> Full refund including fees</li>
+                    <li><strong>Significant schedule changes:</strong> Option for refund if new schedule is unacceptable</li>
+                    <li><strong>Special circumstances:</strong> Medical emergencies or bereavement (with documentation)</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>2. Non-Refundable Bookings</h2>
+                <p>For non-refundable fares:</p>
+                <ul>
+                    <li>Base fare is not refundable</li>
+                    <li>Taxes and fees may be refundable</li>
+                    <li>Some airlines may offer travel credits instead</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>3. Processing Timeline</h2>
+                <p>Refunds typically follow this timeline:</p>
+                <ol>
+                    <li><strong>Request processing:</strong> 1-3 business days</li>
+                    <li><strong>Airline approval:</strong> 3-5 business days</li>
+                    <li><strong>Bank processing:</strong> 5-10 business days</li>
+                </ol>
+                <p>Total time: 10-18 business days from request date.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>4. How to Request a Refund</h2>
+                <p>To initiate a refund:</p>
+                <ol>
+                    <li>Log in to your account</li>
+                    <li>Navigate to "My Trips"</li>
+                    <li>Select the booking you wish to cancel</li>
+                    <li>Follow the refund instructions</li>
+                    <li>Receive confirmation email with refund details</li>
+                </ol>
+                <p>For assistance, contact our Refund Department at <a href="mailto:refunds@aerovoyage.in">refunds@aerovoyage.in</a>.</p>
+            </div>
+            
+            <div class="policy-section">
+                <h2>5. Refund Methods</h2>
+                <p>Refunds are issued to the original payment method:</p>
+                <ul>
+                    <li><strong>Credit/Debit Cards:</strong> 7-14 business days</li>
+                    <li><strong>Net Banking:</strong> 5-7 business days</li>
+                    <li><strong>UPI:</strong> 3-5 business days</li>
+                    <li><strong>Digital Wallets:</strong> 24-48 hours</li>
+                </ul>
+            </div>
+            
+            <div class="policy-section">
+                <h2>6. Contact Information</h2>
+                <p>For refund-related inquiries:</p>
+                <p><strong>Email:</strong> <a href="mailto:refunds@aerovoyage.in">refunds@aerovoyage.in</a></p>
+                <p><strong>Phone:</strong> +91 9876543210 (Refund Department)</p>
+                <p><strong>Hours:</strong> Monday-Saturday, 9AM-6PM IST</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Refund-specific Footer -->
+    <footer class="refund-footer">
+        <div class="refund-footer-content">
+            <div class="refund-footer-column">
+                <h3>Quick Links</h3>
+                <ul class="refund-footer-links">
+                    <li><a href="flights.html">Book Flights</a></li>
+                    <li><a href="offers.html">Special Offers</a></li>
+                    <li><a href="destinations.html">Popular Destinations</a></li>
+                    <li><a href="dashboard.html">My Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="refund-footer-column">
+                <h3>Support</h3>
+                <ul class="refund-footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="refund-footer-column">
+                <h3>Legal</h3>
+                <ul class="refund-footer-links">
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">GDPR Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="refund-footer-bottom">
+            <p>© 2023 AeroVoyage India. All rights reserved.</p>
+            <p>All flight bookings are subject to airline terms and conditions.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Modal functionality
+        const authModal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeAuthModal = document.getElementById('closeAuthModal');
+        
+        if (loginBtn) loginBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (registerBtn) registerBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (closeAuthModal) closeAuthModal.addEventListener('click', () => authModal.style.display = 'none');
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

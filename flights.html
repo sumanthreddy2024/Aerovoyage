@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights - AeroVoyage India</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0066cc;
+            --secondary: #004d99;
+            --dark: #333;
+            --light: #f4f4f4;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 3rem 0 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-links i {
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* Flights Page Specific Styles */
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .container h1 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .flight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .flight-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .flight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .airline-logo {
+            height: 80px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+        .airline-logo img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .flight-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flight-header h3 {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .flight-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .flight-body {
+            padding: 1.5rem;
+        }
+
+        .flight-route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .flight-route i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .flight-city {
+            text-align: center;
+        }
+
+        .flight-city h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .flight-city p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .flight-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flight-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .flight-detail i {
+            color: var(--primary);
+        }
+
+        .flight-detail span {
+            font-size: 0.9rem;
+        }
+
+        .flight-footer {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .book-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .flight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html" class="active">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </header>
+    
+    <!-- Flight Listings -->
+    <div class="container">
+        <h1>Available Flights</h1>
+        
+        <div class="flight-grid">
+            <!-- Flight 1 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://logowik.com/content/uploads/images/indigo-airlines4856.logowik.com.webp" alt="IndiGo">
+                </div>
+                <div class="flight-header">
+                    <h3>IndiGo</h3>
+                    <div class="flight-price">₹4,299</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>06:00 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>08:15 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 2 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://1000logos.net/wp-content/uploads/2020/09/Air-India-Logo-2007.png" alt="Air India">
+                </div>
+                <div class="flight-header">
+                    <h3>Air India</h3>
+                    <div class="flight-price">₹5,499</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>10:30 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>12:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 3 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Vistara_Logo.svg/1200px-Vistara_Logo.svg.png" alt="Vistara">
+                </div>
+                <div class="flight-header">
+                    <h3>Vistara</h3>
+                    <div class="flight-price">₹6,799</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>02:15 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>04:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Premium Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>25kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 4 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/hi/f/fa/SpiceJet_logo.png" alt="SpiceJet">
+                </div>
+                <div class="flight-header">
+                    <h3>SpiceJet</h3>
+                    <div class="flight-price">₹3,999</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>CCU</h4>
+                            <p>08:45 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>MAA</h4>
+                            <p>11:30 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 5 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Go_First_RGB_Logo_1_reduced.jpg" alt="Go First">
+                </div>
+                <div class="flight-header">
+                    <h3>Go First</h3>
+                    <div class="flight-price">₹4,599</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>07:15 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>09:45 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 6 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AirAsia_New_Logo.svg/1200px-AirAsia_New_Logo.svg.png" alt="AirAsia">
+                </div>
+                <div class="flight-header">
+                    <h3>AirAsia</h3>
+                    <div class="flight-price">₹3,299</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>11:00 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>GOI</h4>
+                            <p>12:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>None</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 7 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://logowik.com/content/uploads/images/indigo-airlines4856.logowik.com.webp" alt="IndiGo">
+                </div>
+                <div class="flight-header">
+                    <h3>IndiGo</h3>
+                    <div class="flight-price">₹5,899</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>03:30 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>05:45 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 8 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://1000logos.net/wp-content/uploads/2020/09/Air-India-Logo-2007.png" alt="Air India">
+                </div>
+                <div class="flight-header">
+                    <h3>Air India</h3>
+                    <div class="flight-price">₹7,299</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>09:00 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>CCU</h4>
+                            <p>11:30 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 9 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Vistara_Logo.svg/1200px-Vistara_Logo.svg.png" alt="Vistara">
+                </div>
+                <div class="flight-header">
+                    <h3>Vistara</h3>
+                    <div class="flight-price">₹8,499</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>01:15 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>03:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Business</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>30kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 10 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/hi/f/fa/SpiceJet_logo.png" alt="SpiceJet">
+                </div>
+                <div class="flight-header">
+                    <h3>SpiceJet</h3>
+                    <div class="flight-price">₹4,199</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>MAA</h4>
+                            <p>06:30 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>07:45 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 11 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Go_First_RGB_Logo_1_reduced.jpg" alt="Go First">
+                </div>
+                <div class="flight-header">
+                    <h3>Go First</h3>
+                    <div class="flight-price">₹5,099</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>11:45 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>02:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 12 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AirAsia_New_Logo.svg/1200px-AirAsia_New_Logo.svg.png" alt="AirAsia">
+                </div>
+                <div class="flight-header">
+                    <h3>AirAsia</h3>
+                    <div class="flight-price">₹3,599</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>GOI</h4>
+                            <p>03:30 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>04:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>0h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>None</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 13 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://logowik.com/content/uploads/images/indigo-airlines4856.logowik.com.webp" alt="IndiGo">
+                </div>
+                <div class="flight-header">
+                    <h3>IndiGo</h3>
+                    <div class="flight-price">₹6,299</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>08:00 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>10:15 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 14 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://1000logos.net/wp-content/uploads/2020/09/Air-India-Logo-2007.png" alt="Air India">
+                </div>
+                <div class="flight-header">
+                    <h3>Air India</h3>
+                    <div class="flight-price">₹5,899</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>CCU</h4>
+                            <p>12:30 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>03:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 15 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/bd/Vistara_Logo.svg/1200px-Vistara_Logo.svg.png" alt="Vistara">
+                </div>
+                <div class="flight-header">
+                    <h3>Vistara</h3>
+                    <div class="flight-price">₹7,999</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>04:45 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>MAA</h4>
+                            <p>07:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Premium Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>25kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 16 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/hi/f/fa/SpiceJet_logo.png" alt="SpiceJet">
+                </div>
+                <div class="flight-header">
+                    <h3>SpiceJet</h3>
+                    <div class="flight-price">₹4,899</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>09:15 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>GOI</h4>
+                            <p>10:00 AM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>0h 45m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Snack</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 17 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Go_First_RGB_Logo_1_reduced.jpg" alt="Go First">
+                </div>
+                <div class="flight-header">
+                    <h3>Go First</h3>
+                    <div class="flight-price">₹5,499</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>MAA</h4>
+                            <p>01:30 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>02:45 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1h 15m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 18 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/AirAsia_New_Logo.svg/1200px-AirAsia_New_Logo.svg.png" alt="AirAsia">
+                </div>
+                <div class="flight-header">
+                    <h3>AirAsia</h3>
+                    <div class="flight-price">₹3,899</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>BOM</h4>
+                            <p>05:45 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>BLR</h4>
+                            <p>07:15 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>1h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>15kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>None</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 19 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://logowik.com/content/uploads/images/indigo-airlines4856.logowik.com.webp" alt="IndiGo">
+                </div>
+                <div class="flight-header">
+                    <h3>IndiGo</h3>
+                    <div class="flight-price">₹6,899</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>GOI</h4>
+                            <p>10:00 AM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>DEL</h4>
+                            <p>12:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Flight 20 -->
+            <div class="flight-card">
+                <div class="airline-logo">
+                    <img src="https://1000logos.net/wp-content/uploads/2020/09/Air-India-Logo-2007.png" alt="Air India">
+                </div>
+                <div class="flight-header">
+                    <h3>Air India</h3>
+                    <div class="flight-price">₹7,599</div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-route">
+                        <div class="flight-city">
+                            <h4>HYD</h4>
+                            <p>02:15 PM</p>
+                        </div>
+                        <i class="fas fa-plane"></i>
+                        <div class="flight-city">
+                            <h4>CCU</h4>
+                            <p>04:45 PM</p>
+                        </div>
+                    </div>
+                    <div class="flight-details">
+                        <div class="flight-detail">
+                            <i class="fas fa-clock"></i>
+                            <span>2h 30m</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-chair"></i>
+                            <span>Economy</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-suitcase"></i>
+                            <span>20kg</span>
+                        </div>
+                        <div class="flight-detail">
+                            <i class="fas fa-utensils"></i>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-footer">
+                    <button class="book-btn">
+                        <i class="fas fa-ticket-alt"></i> Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AeroVoyage</h3>
+                <p>Your trusted partner for flight bookings across India. We offer the best prices and service for your domestic travel needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="offers.html">Special Offers</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Ongole, Andhra Pradesh, India</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-envelope"></i> support@aerovoyage.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 AeroVoyage India. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Login/Register button functionality
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            // Redirect to login page or show login modal
+            window.location.href = 'login.html';
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            // Redirect to registration page
+            window.location.href = 'register.html';
+        });
+
+        // Book Now button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookButtons = document.querySelectorAll('.book-btn');
+            
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const flightCard = this.closest('.flight-card');
+                    const flightDetails = {
+                        airline: flightCard.querySelector('.flight-header h3').textContent,
+                        price: flightCard.querySelector('.flight-price').textContent,
+                        departure: flightCard.querySelectorAll('.flight-city h4')[0].textContent,
+                        arrival: flightCard.querySelectorAll('.flight-city h4')[1].textContent,
+                        departureTime: flightCard.querySelectorAll('.flight-city p')[0].textContent,
+                        arrivalTime: flightCard.querySelectorAll('.flight-city p')[1].textContent,
+                        duration: flightCard.querySelectorAll('.flight-detail span')[0].textContent,
+                        cabinClass: flightCard.querySelectorAll('.flight-detail span')[1].textContent,
+                        baggage: flightCard.querySelectorAll('.flight-detail span')[2].textContent,
+                        meal: flightCard.querySelectorAll('.flight-detail span')[3].textContent
+                    };
+                    
+                    // Store flight details in localStorage
+                    localStorage.setItem('selectedFlight', JSON.stringify(flightDetails));
+                    
+                    // Redirect to booking page
+                    window.location.href = 'booking.html';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

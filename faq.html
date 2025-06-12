@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - AeroVoyage India</title>
+    <style>
+        :root {
+            --primary: #3a86ff;
+            --secondary: #8338ec;
+            --accent: #ff006e;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --text: #333333;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* FAQ Content */
+        .faq-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .faq-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .faq-content {
+            background-color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-category h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .faq-category h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-top: 0.5rem;
+            color: #555;
+        }
+        
+        .faq-answer.show {
+            display: block;
+        }
+        
+        .highlight {
+            background-color: rgba(58, 134, 255, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav {
+                margin: 1rem 0;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .faq-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fas fa-plane"></i> AeroVoyage
+        </a>
+        
+        <nav>
+            <ul>
+                <li><a href="flights.html">Flights</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="auth-buttons">
+            <button class="btn btn-outline" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary" id="registerBtn">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+        </div>
+    </header>
+    
+    <!-- FAQ Content -->
+    <div class="faq-container">
+        <div class="faq-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about booking, cancellations, and more</p>
+        </div>
+        
+        <div class="faq-content">
+            <div class="faq-category">
+                <h2>Booking & Reservations</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I book a flight on AeroVoyage?</div>
+                    <div class="faq-answer">
+                        <p>Booking a flight is simple! Just follow these steps:</p>
+                        <ol>
+                            <li>Enter your departure and destination cities</li>
+                            <li>Select your travel dates</li>
+                            <li>Choose from available flights</li>
+                            <li>Enter passenger details</li>
+                            <li>Complete the payment process</li>
+                            <li>Receive your e-ticket via email</li>
+                        </ol>
+                        <p>You can also book through our mobile app for a faster experience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I book a flight without creating an account?</div>
+                    <div class="faq-answer">
+                        <p>Yes, you can book as a guest, but we recommend creating an account because:</p>
+                        <ul>
+                            <li>Manage all your bookings in one place</li>
+                            <li>Access exclusive members-only deals</li>
+                            <li>Faster checkout for future bookings</li>
+                            <li>Earn reward points on every booking</li>
+                            <li>Receive personalized travel recommendations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I know my booking is confirmed?</div>
+                    <div class="faq-answer">
+                        <p>After successful payment, you'll receive:</p>
+                        <ul>
+                            <li>A confirmation email with your e-ticket and booking details (check spam folder if not received)</li>
+                            <li>SMS notification with your booking reference number</li>
+                        </ul>
+                        <p>You can also:</p>
+                        <ul>
+                            <li>View your booking in the 'My Trips' section if you're logged in</li>
+                            <li>Verify your booking status on the airline's website using your PNR number</li>
+                            <li>Contact our customer support for verification</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I book flights for someone else?</div>
+                    <div class="faq-answer">
+                        <p>Yes, you can book flights for others. Please ensure:</p>
+                        <ul>
+                            <li>All passenger details are entered exactly as they appear on government-issued ID</li>
+                            <li>For international flights, passport details must match exactly</li>
+                            <li>You have permission to use the payment method</li>
+                            <li>Contact information should be yours for booking updates</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How far in advance can I book flights?</div>
+                    <div class="faq-answer">
+                        <p>You can typically book flights:</p>
+                        <ul>
+                            <li>Domestic flights: Up to 330 days in advance (varies by airline)</li>
+                            <li>International flights: Up to 365 days in advance</li>
+                            <li>Last-minute bookings: Up to 2 hours before departure (online) or at airport counter</li>
+                        </ul>
+                        <p>Booking early often gets you better prices, especially for peak travel seasons.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Payments & Pricing</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What payment methods do you accept?</div>
+                    <div class="faq-answer">
+                        <p>We accept various payment methods for your convenience:</p>
+                        <ul>
+                            <li><strong>Credit/Debit Cards:</strong> Visa, MasterCard, American Express, RuPay</li>
+                            <li><strong>Net Banking:</strong> All major Indian banks</li>
+                            <li><strong>UPI:</strong> Any UPI ID through supported apps</li>
+                            <li><strong>Digital Wallets:</strong> Paytm, PhonePe, Google Pay, Amazon Pay</li>
+                            <li><strong>EMI:</strong> Available through select banks (3-12 month options)</li>
+                        </ul>
+                        <p>All transactions are secured with 256-bit SSL encryption.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Why does the final price differ from the initial price shown?</div>
+                    <div class="faq-answer">
+                        <p>The total price includes several components:</p>
+                        <ul>
+                            <li><strong>Base Fare:</strong> The airline's basic ticket price</li>
+                            <li><strong>Taxes & Surcharges:</strong> Government taxes and airline-imposed fees including:
+                                <ul>
+                                    <li>Passenger Service Fee (PSF)</li>
+                                    <li>User Development Fee (UDF)</li>
+                                    <li>Goods and Services Tax (GST)</li>
+                                    <li>Fuel Surcharge</li>
+                                </ul>
+                            </li>
+                            <li><strong>Optional Services:</strong> Seat selection, meals, extra baggage etc. if selected</li>
+                        </ul>
+                        <p>We display the full breakdown before you complete payment.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is it safe to enter my payment details on your website?</div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We prioritize your security with:</p>
+                        <ul>
+                            <li>256-bit SSL encryption for all transactions</li>
+                            <li>PCI-DSS compliant payment processing</li>
+                            <li>Tokenization technology - we never store your full card details</li>
+                            <li>3D Secure authentication for card payments</li>
+                            <li>Regular security audits by independent firms</li>
+                        </ul>
+                        <p>For added security, we recommend:</p>
+                        <ul>
+                            <li>Using UPI or wallets for faster, card-less payments</li>
+                            <li>Enabling OTP-based authentication for your payment methods</li>
+                            <li>Checking for the padlock icon in your browser address bar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do you offer price matching or price drop protection?</div>
+                    <div class="faq-answer">
+                        <p>Our pricing policies:</p>
+                        <ul>
+                            <li><strong>Price Matching:</strong> We automatically compare our prices with major competitors to ensure you get the best deal</li>
+                            <li><strong>Price Drop Protection:</strong> Available with our Premium membership - if the price drops after you book, we'll credit the difference as travel vouchers</li>
+                            <li><strong>Best Price Guarantee:</strong> Found a lower price elsewhere? Contact us within 24 hours of booking with proof and we'll match it plus give you 5% extra as credit</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What currency are your prices displayed in?</div>
+                    <div class="faq-answer">
+                        <p>All prices on our platform are displayed in Indian Rupees (₹).</p>
+                        <p>For international flights:</p>
+                        <ul>
+                            <li>Taxes and fees may be calculated in local currencies and converted to INR</li>
+                            <li>Conversion rates are updated daily based on RBI reference rates</li>
+                            <li>Your bank may apply additional foreign transaction fees</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Cancellations & Refunds</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I cancel my flight booking?</div>
+                    <div class="faq-answer">
+                        <p>You can cancel your booking through:</p>
+                        <ol>
+                            <li><strong>Website/App:</strong>
+                                <ul>
+                                    <li>Log in to your account</li>
+                                    <li>Go to 'My Trips' section</li>
+                                    <li>Select the booking and choose 'Cancel'</li>
+                                    <li>Follow the prompts</li>
+                                </ul>
+                            </li>
+                            <li><strong>As Guest:</strong>
+                                <ul>
+                                    <li>Use the 'Manage Booking' option on our homepage</li>
+                                    <li>Enter booking reference and last name</li>
+                                    <li>Proceed with cancellation</li>
+                                </ul>
+                            </li>
+                            <li><strong>Customer Support:</strong> Call +91 9876543210 for assistance</li>
+                        </ol>
+                        <p>Cancellation fees depend on airline policies and fare rules.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How long does it take to process refunds?</div>
+                    <div class="faq-answer">
+                        <p>Refund processing times:</p>
+                        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                            <tr style="background-color: #f5f7fa;">
+                                <th style="padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd;">Payment Method</th>
+                                <th style="padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd;">Processing Time</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">Credit/Debit Cards</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">7-14 business days</td>
+                            </tr>
+                            <tr style="background-color: #f5f7fa;">
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">Net Banking</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">5-7 business days</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">UPI</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">3-5 business days</td>
+                            </tr>
+                            <tr style="background-color: #f5f7fa;">
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">Digital Wallets</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">24-48 hours</td>
+                            </tr>
+                        </table>
+                        <p>Note: These are estimates and may vary based on your bank's processing times.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What is your cancellation policy?</div>
+                    <div class="faq-answer">
+                        <p>Our cancellation policy depends on:</p>
+                        <ul>
+                            <li><strong>Airline Rules:</strong> Each airline has different policies for different fare types</li>
+                            <li><strong>Fare Type:</strong>
+                                <ul>
+                                    <li>Non-refundable fares: May only get tax refunds</li>
+                                    <li>Flexible fares: Full or partial refunds available</li>
+                                    <li>Promotional fares: Often have strict cancellation rules</li>
+                                </ul>
+                            </li>
+                            <li><strong>Timing of Cancellation:</strong>
+                                <ul>
+                                    <li>More than 48 hours before departure: Lower fees</li>
+                                    <li>Within 48 hours: Higher fees or no refund</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>For exact cancellation charges, please check your specific fare rules or contact us.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I get a refund if my flight is delayed or cancelled?</div>
+                    <div class="faq-answer">
+                        <p>According to DGCA regulations:</p>
+                        <ul>
+                            <li><strong>Flight Cancellation:</strong>
+                                <ul>
+                                    <li>You're entitled to full refund or alternate flight</li>
+                                    <li>Compensation may apply if notified less than 2 weeks before departure</li>
+                                </ul>
+                            </li>
+                            <li><strong>Flight Delays:</strong>
+                                <ul>
+                                    <li>2+ hours delay: Refreshments must be provided</li>
+                                    <li>6+ hours delay: Option to cancel with full refund</li>
+                                    <li>24+ hours delay: Compensation may apply</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>In all cases, contact the airline first at the airport for immediate assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens if I miss my flight?</div>
+                    <div class="faq-answer">
+                        <p>If you miss your flight:</p>
+                        <ul>
+                            <li><strong>No-show Policy:</strong> Most airlines consider this a forfeiture of the entire ticket</li>
+                            <li><strong>Possible Options:</strong>
+                                <ul>
+                                    <li>Some airlines may allow rebooking with fees (often equal to ticket price)</li>
+                                    <li>You may be able to use the return portion if round-trip</li>
+                                    <li>Taxes might be refundable in some cases</li>
+                                </ul>
+                            </li>
+                            <li><strong>Recommendations:</strong>
+                                <ul>
+                                    <li>Arrive at least 2 hours before domestic flights</li>
+                                    <li>Arrive 3 hours before international flights</li>
+                                    <li>Contact airline immediately if you're running late</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-category">
+                <h2>Check-in & Boarding</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">When can I check-in for my flight?</div>
+                    <div class="faq-answer">
+                        <p>Check-in timelines vary by airline but generally:</p>
+                        <ul>
+                            <li><strong>Online Check-in:</strong>
+                                <ul>
+                                    <li>Opens 48 hours before departure for most airlines</li>
+                                    <li>Closes 1-2 hours before departure</li>
+                                </ul>
+                            </li>
+                            <li><strong>Airport Check-in:</strong>
+                                <ul>
+                                    <li>Domestic: Closes 45-60 minutes before departure</li>
+                                    <li>International: Closes 60-90 minutes before departure</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>We recommend completing online check-in as soon as it opens to get better seat options.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What documents do I need for domestic flights in India?</div>
+                    <div class="faq-answer">
+                        <p>For domestic travel within India, you need:</p>
+                        <ul>
+                            <li><strong>Mandatory:</strong>
+                                <ul>
+                                    <li>Valid government-issued photo ID (any one):
+                                        <ul>
+                                            <li>Aadhaar Card</li>
+                                            <li>Passport</li>
+                                            <li>Voter ID</li>
+                                            <li>PAN Card</li>
+                                            <li>Driving License</li>
+                                        </ul>
+                                    </li>
+                                    <li>Boarding pass (printed or mobile)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Recommended:</strong>
+                                <ul>
+                                    <li>Printout or screenshot of e-ticket</li>
+                                    <li>COVID vaccination certificate (if required by destination)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What's the baggage allowance for domestic flights?</div>
+                    <div class="faq-answer">
+                        <p>Baggage policies vary by airline but typical allowances are:</p>
+                        <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+                            <tr style="background-color: #f5f7fa;">
+                                <th style="padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd;">Airline</th>
+                                <th style="padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd;">Cabin Baggage</th>
+                                <th style="padding: 0.8rem; text-align: left; border-bottom: 1px solid #ddd;">Check-in Baggage</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">Air India</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">1 piece (7kg)</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">15-25kg</td>
+                            </tr>
+                            <tr style="background-color: #f5f7fa;">
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">IndiGo</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">1 piece (7kg)</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">15-20kg</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">SpiceJet</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">1 piece (7kg)</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">15kg</td>
+                            </tr>
+                            <tr style="background-color: #f5f7fa;">
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">Vistara</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">1 piece (7kg) + 1 personal item</td>
+                                <td style="padding: 0.8rem; border-bottom: 1px solid #ddd;">15-30kg</td>
+                            </tr>
+                        </table>
+                        <p>Note: Always check your specific fare rules as allowances may vary.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I select my seat in advance?</div>
+                    <div class="faq-answer">
+                        <p>Seat selection options:</p>
+                        <ul>
+                            <li><strong>Complimentary Selection:</strong>
+                                <ul>
+                                    <li>Some airlines allow free selection during check-in</li>
+                                    <li>Basic economy fares often have random assignments</li>
+                                </ul>
+                            </li>
+                            <li><strong>Paid Selection:</strong>
+                                <ul>
+                                    <li>Most airlines offer paid seat selection (₹200-₹2000 depending on seat type)</li>
+                                    <li>Extra legroom seats cost more</li>
+                                    <li>Bulkhead/emergency exit seats may have restrictions</li>
+                                </ul>
+                            </li>
+                            <li><strong>Recommendations:</strong>
+                                <ul>
+                                    <li>Check-in early for better seat options</li>
+                                    <li>Families should select seats together when booking</li>
+                                    <li>Contact airline for special needs (wheelchair access, etc.)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What items are prohibited in cabin baggage?</div>
+                    <div class="faq-answer">
+                        <p>Prohibited items include (but not limited to):</p>
+                        <ul>
+                            <li><strong>Sharp Objects:</strong> Knives, scissors (blades >6cm), razor blades</li>
+                            <li><strong>Liquids/Gels:</strong> Containers >100ml (must fit in 1 liter clear bag)</li>
+                            <li><strong>Flammable Items:</strong> Lighter fluids, paint, gasoline</li>
+                            <li><strong>Weapons:</strong> Firearms, ammunition, stun guns</li>
+                            <li><strong>Tools:</strong> Hammers, drills, crowbars</li>
+                            <li><strong>Other:</strong>
+                                <ul>
+                                    <li>Self-defense sprays (pepper spray, etc.)</li>
+                                    <li>Lithium batteries >100Wh (with some exceptions)</li>
+                                    <li>Magnetic materials</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p>For complete list, refer to BCAS (Bureau of Civil Aviation Security) guidelines.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <p><strong>Need more help?</strong> Our customer support team is available 24/7 to assist you with any questions. Contact us at <a href="mailto:support@aerovoyage.in">support@aerovoyage.in</a> or call +91 9876543210.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AeroVoyage</h3>
+                <p>Your trusted partner for flight bookings across India. We offer the best prices and service for your domestic travel needs.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/sumanth_reddy_01?igsh=MWpzeXVzOXJjemwwdw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/sumanth-reddy-boyalla-06112a31b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:oksumanth@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="flights.html">Flights</a></li>
+                    <li><a href="offers.html">Offers</a></li>
+                    <li><a href="destinations.html">Destinations</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="refund.html">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Ongole, Andhra Pradesh</li>
+                    <li><i class="fas fa-envelope"></i> oksumanth@gmail.com</li>
+                    <li><i class="fas fa-user"></i> Founder: Sumanth Reddy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 AeroVoyage India. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle FAQ answers
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                question.classList.toggle('active');
+                answer.classList.toggle('show');
+            });
+        });
+        
+        // Modal functionality
+        const authModal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeAuthModal = document.getElementById('closeAuthModal');
+        
+        if (loginBtn) loginBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (registerBtn) registerBtn.addEventListener('click', () => authModal.style.display = 'flex');
+        if (closeAuthModal) closeAuthModal.addEventListener('click', () => authModal.style.display = 'none');
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
